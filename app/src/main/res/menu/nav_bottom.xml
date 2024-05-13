@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/home"
+        android:title="Home"
+        android:icon="@drawable/homepg"/>
+    <item
+        android:id="@+id/nav"
+        android:title="Navigation"
+        android:icon="@drawable/pinpg"/>
+    <item
+        android:id="@+id/fav"
+        android:title="Favorites"
+        android:icon="@drawable/heartpg"/>
+    <item
+        android:id="@+id/order"
+        android:title="Order"
+        android:icon="@drawable/bagpg"/>
+    <item
+        android:id="@+id/profile"
+        android:title="Profile"
+        android:icon="@drawable/baseline_person_outline_24"/>
+
+</menu>

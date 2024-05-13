@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "858590535239",
+    "project_id": "craftopiaproject-b760c",
+    "storage_bucket": "craftopiaproject-b760c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:858590535239:android:c7f9fb66f892e2e4381b62",
+        "android_client_info": {
+          "package_name": "com.capstone.craftopiaproject"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA1fN-F77-rCjYi97wlFwO9Yn6ru-KTfac"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:858590535239:android:6d91b2833aa5b340381b62",
+        "android_client_info": {
+          "package_name": "com.capstone.usercraftopia"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA1fN-F77-rCjYi97wlFwO9Yn6ru-KTfac"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
