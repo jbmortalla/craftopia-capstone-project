@@ -1,8 +1,14 @@
 package com.capstone.craftopiaproject
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
+import android.text.SpannableString
+import android.text.method.LinkMovementMethod
+import android.text.style.ClickableSpan
+import android.view.View
 import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.textfield.TextInputEditText
@@ -14,6 +20,8 @@ class Register : AppCompatActivity() {
 
     private lateinit var db: FirebaseFirestore
     private lateinit var userId: FirebaseAuth
+
+    private lateinit var loginButton: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -79,5 +87,23 @@ class Register : AppCompatActivity() {
                     }
                 }
         }
+
+        //Link Setup
+        loginButton = findViewById(R.id.clickHere)
+        val text = "Already have an account? Click Here"
+        val spannableString = SpannableString(text)
+        val clickableSpan = object : ClickableSpan() {
+            override fun onClick(widget: View) {
+                val intent = Intent(this@Register, Login::class.java)
+                startActivity(intent)
+                overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right)
+            }
+        }
+        val startIndex = text.indexOf("Click Here")
+        val endIndex = startIndex + "Click Here".length
+        spannableString.setSpan(clickableSpan, startIndex, endIndex, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE)
+        loginButton.text = spannableString
+        loginButton.movementMethod = LinkMovementMethod.getInstance()
+        loginButton.highlightColor = Color.TRANSPARENT
     }
 }
