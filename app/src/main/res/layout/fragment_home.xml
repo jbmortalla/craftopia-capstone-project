@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -32,13 +33,11 @@
         </androidx.appcompat.widget.Toolbar>
 
         <LinearLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:padding="5dp"
             android:background="@color/header"
             android:orientation="horizontal">
-
 
 
             <EditText
@@ -47,15 +46,24 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@drawable/border"
+                android:fontFamily="sans-serif-light"
                 android:inputType="textFilter"
                 android:maxLines="1"
-                android:padding="8dp" />
+                android:padding="8dp"
+                android:textSize="14dp" />
 
             <Button
                 android:id="@+id/search_bar_button"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:background="@color/white"/>
+                android:layout_gravity="center"
+                android:backgroundTint="#FFC107"
+                android:fontFamily="sans-serif-light"
+                android:background="@drawable/search_border"
+                android:text="Search"
+                android:textColorLink="#FFC107"
+                android:textSize="13sp"
+                app:icon="@android:drawable/ic_menu_search" />
 
         </LinearLayout>
 

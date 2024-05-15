@@ -25,6 +25,15 @@ class ViewContent : AppCompatActivity() {
                 R.id.home -> {
                     selectedFragment = HomeFragment.newInstance()
                 }
+                R.id.nav -> {
+                    selectedFragment = NavigationFragment.newInstance()
+                }
+                R.id.fav -> {
+                    selectedFragment = FavoritesFragment.newInstance()
+                }
+                R.id.order -> {
+                    selectedFragment = OrderFragment.newInstance()
+                }
                 R.id.profile -> {
                     selectedFragment = UserInformation.newInstance()
                 }
