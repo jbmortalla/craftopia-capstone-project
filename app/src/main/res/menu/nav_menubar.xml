@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn ="navigation_view">
+
+    <item
+        android:title="Digital Content">
+        <menu>
+            <item
+                android:id="@+id/books"
+                android:icon="@drawable/baseline_menu_book_24"
+                android:title="E-Readers and Books"/>
+            <item
+                android:id="@+id/appstore"
+                android:icon="@drawable/baseline_featured_play_list_24"
+                android:title="Craftopia Appstore"/>
+        </menu>
+
+    </item>
+
+    <item
+        android:title="Shop By Categories">
+        <menu>
+            <item
+                android:id="@+id/creations"
+                android:icon="@drawable/baseline_construction_24"
+                android:title="Handcrafted Creations"/>
+            <item
+                android:id="@+id/raw"
+                android:title="Raw Materials"
+                android:icon="@drawable/baseline_draw_24"
+                android:iconTint="@color/black"/>
+            <item
+                android:id="@+id/tools"
+                android:icon="@drawable/baseline_carpenter_24"
+                android:title="Handcrafted Tools"
+                android:iconTint="@color/black"/>
+        </menu>
+
+    </item>
+
+    <item
+        android:title="Program and Features">
+        <menu>
+            <item
+                android:id="@+id/collab"
+                android:icon="@drawable/baseline_connect_without_contact_24"
+                android:title="Connect and Collaborate"/>
+            <item
+                android:id="@+id/calendar"
+                android:icon="@drawable/baseline_edit_calendar_24"
+                android:title="Event Calendar"/>
+            <item
+                android:id="@+id/workshop"
+                android:icon="@drawable/baseline_storefront_24"
+                android:title="Skill Workshop"/>
+            <item
+                android:id="@+id/forum"
+                android:icon="@drawable/baseline_forum_24"
+                android:title="Community Forums"/>
+
+        </menu>
+
+    </item>
+
+</menu>

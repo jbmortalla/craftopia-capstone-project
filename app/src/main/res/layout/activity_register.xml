@@ -33,7 +33,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
-        android:layout_height="500sp"
+        android:layout_height="wrap_content"
         android:paddingLeft="40dp"
         android:paddingRight="40dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -64,6 +64,7 @@
                     android:id="@+id/sign_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:maxLines="1"
                     android:ems="15" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -79,6 +80,7 @@
                     android:id="@+id/sign_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:maxLines="1"
                     android:ems="15" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -87,6 +89,7 @@
                 android:id="@+id/textInputLayout9"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:layout_marginTop="10dp"
                 android:hint="Password">
 
@@ -95,6 +98,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPassword"
+                    android:maxLines="1"
                     android:ems="15" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -111,6 +115,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPassword"
+                    android:maxLines="1"
                     android:ems="15" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -119,6 +124,7 @@
                 android:id="@+id/textInputLayout5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:layout_marginTop="10dp"
                 android:hint="Artist or Client">
 
@@ -126,6 +132,7 @@
                     android:id="@+id/sign_type"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:maxLines="1"
                     android:ems="15" />
 
             </com.google.android.material.textfield.TextInputLayout>

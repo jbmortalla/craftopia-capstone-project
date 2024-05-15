@@ -45,8 +45,39 @@ class Register : AppCompatActivity() {
             val confirmpass = confirmPass.text.toString()
             val type = signType.text.toString()
 
+            if (name.isEmpty()) {
+                signName.error = "Name is required"
+                signName.requestFocus()
+                return@setOnClickListener
+            }
+
+            if (email.isEmpty()) {
+                signEmail.error = "Email is required"
+                signEmail.requestFocus()
+                return@setOnClickListener
+            }
+
+            if (password.isEmpty()) {
+                signPass.error = "Password is required"
+                signPass.requestFocus()
+                return@setOnClickListener
+            }
+
+            if (confirmpass.isEmpty()) {
+                confirmPass.error = "Confirmation password is required"
+                confirmPass.requestFocus()
+                return@setOnClickListener
+            }
+
             if (password != confirmpass) {
-                Toast.makeText(this, "Passwords do not match", Toast.LENGTH_SHORT).show()
+                confirmPass.error = "Passwords do not match"
+                confirmPass.requestFocus()
+                return@setOnClickListener
+            }
+
+            if (type.isEmpty()) {
+                signType.error = "User type is required"
+                signType.requestFocus()
                 return@setOnClickListener
             }
 
@@ -72,7 +103,7 @@ class Register : AppCompatActivity() {
                                 confirmPass.text?.clear()
                                 signType.text?.clear()
 
-                                startActivity(Intent(this, Content::class.java))
+                                startActivity(Intent(this, ViewContent::class.java))
                                 finish()
                             }
                             .addOnFailureListener {
@@ -88,7 +119,6 @@ class Register : AppCompatActivity() {
                 }
         }
 
-        //Link Setup
         loginButton = findViewById(R.id.clickHere)
         val text = "Already have an account? Click Here"
         val spannableString = SpannableString(text)

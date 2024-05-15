@@ -15,8 +15,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
-import com.google.rpc.Help
-
+import com.google.firebase.auth.FirebaseAuthInvalidUserException
 class Login : AppCompatActivity() {
 
     private lateinit var mAuth: FirebaseAuth
@@ -46,20 +45,38 @@ class Login : AppCompatActivity() {
             val email = emailInput.text.toString()
             val password = passwordInput.text.toString()
 
+            if (email.isEmpty()) {
+                emailInput.error = "Email is required"
+                emailInput.requestFocus()
+                return@setOnClickListener
+            }
+
+            if (password.isEmpty()) {
+                passwordInput.error = "Password is required"
+                passwordInput.requestFocus()
+                return@setOnClickListener
+            }
+
             mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
-                        startActivity(Intent(this, Content::class.java))
+                        startActivity(Intent(this, ViewContent::class.java))
                         finish()
                     } else {
-                        Toast.makeText(
-                            this, "Authentication failed: " + task.exception?.message,
-                            Toast.LENGTH_SHORT
-                        ).show()
+                        if (task.exception is FirebaseAuthInvalidUserException) {
+                            Toast.makeText(
+                                this, "Account does not exist.",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        } else {
+                            Toast.makeText(
+                                this, "Authentication failed: " + task.exception?.message,
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
                     }
                 }
         }
-
         // Link setup
         signUpButton = findViewById(R.id.clickHere)
         val text = "New to Craftopia? Click Here"
