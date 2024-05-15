@@ -15,6 +15,7 @@ import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import java.security.MessageDigest
 
 class Register : AppCompatActivity() {
 
@@ -87,10 +88,13 @@ class Register : AppCompatActivity() {
                         val user = userId.currentUser
                         val userId = user!!.uid
 
+                        // Hash the password
+                        val hashedPassword = hashPassword(password)
+
                         val userMap = hashMapOf(
                             "name" to name,
                             "email" to email,
-                            "password" to password,
+                            "password" to hashedPassword,
                             "type" to type
                         )
 
@@ -135,5 +139,13 @@ class Register : AppCompatActivity() {
         loginButton.text = spannableString
         loginButton.movementMethod = LinkMovementMethod.getInstance()
         loginButton.highlightColor = Color.TRANSPARENT
+    }
+
+    // Function to hash password
+    private fun hashPassword(password: String): String {
+        val bytes = password.toByteArray()
+        val md = MessageDigest.getInstance("SHA-256")
+        val digest = md.digest(bytes)
+        return digest.fold("", { str, it -> str + "%02x".format(it) })
     }
 }
