@@ -11,8 +11,10 @@ import com.capstone.craftopiaproject.R
 
 class Home_Adapter(
     private val context: Context,
-    private val homeList: List<Home_List>
+    private var homeList: List<Home_List>
 ) : RecyclerView.Adapter<Home_Adapter.HomeViewHolder>() {
+
+    private var filteredList: List<Home_List> = homeList
 
     class HomeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val categoryImage: ImageView = itemView.findViewById(R.id.category_image)
@@ -25,12 +27,21 @@ class Home_Adapter(
     }
 
     override fun onBindViewHolder(holder: HomeViewHolder, position: Int) {
-        val homeItem = homeList[position]
+        val homeItem = filteredList[position]
         holder.categoryImage.setImageResource(homeItem.categoryImg)
         holder.categoryName.text = homeItem.categoryName
     }
 
     override fun getItemCount(): Int {
-        return homeList.size
+        return filteredList.size
+    }
+
+    fun filter(text: String) {
+        filteredList = if (text.isEmpty()) {
+            homeList
+        } else {
+            homeList.filter { it.categoryName.contains(text, true) }
+        }
+        notifyDataSetChanged()
     }
 }

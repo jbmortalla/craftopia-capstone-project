@@ -39,7 +39,6 @@
             android:background="@color/header"
             android:orientation="horizontal">
 
-
             <EditText
                 android:id="@+id/search_bar_edit_text"
                 android:layout_width="0dp"
@@ -50,18 +49,18 @@
                 android:inputType="textFilter"
                 android:maxLines="1"
                 android:padding="8dp"
-                android:textSize="14dp" />
+                android:textSize="14dp"
+                android:drawableEnd="@drawable/ic_clear"
+                android:drawableRight="@drawable/ic_clear" />
 
             <Button
                 android:id="@+id/search_bar_button"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:backgroundTint="#FFC107"
-                android:fontFamily="sans-serif-light"
                 android:background="@drawable/search_border"
+                android:fontFamily="sans-serif-light"
                 android:text="Search"
-                android:textColorLink="#FFC107"
                 android:textSize="13sp"
                 app:icon="@android:drawable/ic_menu_search" />
 

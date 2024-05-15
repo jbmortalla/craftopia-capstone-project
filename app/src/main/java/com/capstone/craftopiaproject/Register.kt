@@ -1,7 +1,9 @@
 package com.capstone.craftopiaproject
 
+import android.app.Activity
 import android.content.Intent
 import android.graphics.Color
+import android.net.Uri
 import android.os.Bundle
 import android.text.SpannableString
 import android.text.method.LinkMovementMethod
@@ -15,14 +17,24 @@ import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 import java.security.MessageDigest
 
 class Register : AppCompatActivity() {
 
     private lateinit var db: FirebaseFirestore
     private lateinit var userId: FirebaseAuth
+    private lateinit var storageReference: StorageReference
 
     private lateinit var loginButton: TextView
+    private lateinit var uploadButton: Button
+    private lateinit var uploadedImageLink: TextView
+    private var selectedImageUri: Uri? = null
+
+    companion object {
+        private const val PICK_IMAGE_REQUEST = 1
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,6 +43,7 @@ class Register : AppCompatActivity() {
         FirebaseApp.initializeApp(this)
         db = FirebaseFirestore.getInstance()
         userId = FirebaseAuth.getInstance()
+        storageReference = FirebaseStorage.getInstance().reference
 
         val signUp = findViewById<Button>(R.id.btn_sign)
         val signName = findViewById<TextInputEditText>(R.id.sign_name)
@@ -38,6 +51,13 @@ class Register : AppCompatActivity() {
         val signPass = findViewById<TextInputEditText>(R.id.sign_pass)
         val confirmPass = findViewById<TextInputEditText>(R.id.sign_confirmpass)
         val signType = findViewById<TextInputEditText>(R.id.sign_type)
+        uploadButton = findViewById(R.id.uploadButton)
+        uploadedImageLink = findViewById(R.id.imageLink)
+
+        uploadButton.setOnClickListener {
+            val intent = Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+            startActivityForResult(intent, PICK_IMAGE_REQUEST)
+        }
 
         signUp.setOnClickListener {
             val name = signName.text.toString()
@@ -98,21 +118,14 @@ class Register : AppCompatActivity() {
                             "type" to type
                         )
 
-                        db.collection("user").document(userId).set(userMap)
-                            .addOnSuccessListener {
-                                Toast.makeText(this, "Successfully Created an Account!", Toast.LENGTH_SHORT).show()
-                                signName.text?.clear()
-                                signEmail.text?.clear()
-                                signPass.text?.clear()
-                                confirmPass.text?.clear()
-                                signType.text?.clear()
-
-                                startActivity(Intent(this, ViewContent::class.java))
-                                finish()
+                        if (selectedImageUri != null) {
+                            uploadImageToFirebase(userId, selectedImageUri!!) { imageUrl ->
+                                userMap["imageUrl"] = imageUrl
+                                saveUserToFirestore(userId, userMap)
                             }
-                            .addOnFailureListener {
-                                Toast.makeText(this, "Failed!", Toast.LENGTH_SHORT).show()
-                            }
+                        } else {
+                            saveUserToFirestore(userId, userMap)
+                        }
                     } else {
                         Toast.makeText(
                             this,
@@ -139,6 +152,49 @@ class Register : AppCompatActivity() {
         loginButton.text = spannableString
         loginButton.movementMethod = LinkMovementMethod.getInstance()
         loginButton.highlightColor = Color.TRANSPARENT
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK && data != null && data.data != null) {
+            selectedImageUri = data.data
+            uploadedImageLink.text = selectedImageUri.toString()
+        }
+    }
+
+    private fun uploadImageToFirebase(userId: String, imageUri: Uri, callback: (String) -> Unit) {
+        val fileRef = storageReference.child("users/$userId/profile.jpg")
+        fileRef.putFile(imageUri)
+            .addOnSuccessListener {
+                fileRef.downloadUrl.addOnSuccessListener { uri ->
+                    callback(uri.toString())
+                }
+            }
+            .addOnFailureListener { e ->
+                Toast.makeText(this, "Image Upload Failed: ${e.message}", Toast.LENGTH_SHORT).show()
+            }
+    }
+
+    private fun saveUserToFirestore(userId: String, userMap: HashMap<String, String>) {
+        db.collection("user").document(userId).set(userMap)
+            .addOnSuccessListener {
+                Toast.makeText(this, "Successfully Created an Account!", Toast.LENGTH_SHORT).show()
+                clearInputs()
+                startActivity(Intent(this, ViewContent::class.java))
+                finish()
+            }
+            .addOnFailureListener {
+                Toast.makeText(this, "Failed!", Toast.LENGTH_SHORT).show()
+            }
+    }
+
+    private fun clearInputs() {
+        findViewById<TextInputEditText>(R.id.sign_name).text?.clear()
+        findViewById<TextInputEditText>(R.id.sign_email).text?.clear()
+        findViewById<TextInputEditText>(R.id.sign_pass).text?.clear()
+        findViewById<TextInputEditText>(R.id.sign_confirmpass).text?.clear()
+        findViewById<TextInputEditText>(R.id.sign_type).text?.clear()
+        uploadedImageLink.text = ""
     }
 
     // Function to hash password

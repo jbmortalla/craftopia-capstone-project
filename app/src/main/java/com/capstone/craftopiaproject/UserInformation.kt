@@ -1,17 +1,21 @@
 package com.capstone.craftopiaproject
 
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import java.io.InputStream
+import java.net.HttpURLConnection
+import java.net.URL
 
 
 class UserInformation : Fragment() {
@@ -19,6 +23,7 @@ class UserInformation : Fragment() {
     private lateinit var nameTextView: TextView
     private lateinit var emailTextView: TextView
     private lateinit var typeTextView: TextView
+    private lateinit var imageProfile: ImageView
     private lateinit var logoutButton: Button
 
     private lateinit var firebaseAuth: FirebaseAuth
@@ -33,6 +38,7 @@ class UserInformation : Fragment() {
         nameTextView = view.findViewById(R.id.userName)
         emailTextView = view.findViewById(R.id.userEmail)
         typeTextView = view.findViewById(R.id.userType)
+        imageProfile = view.findViewById(R.id.profile)
 
         logoutButton = view.findViewById(R.id.logoutButton)
 
@@ -55,10 +61,30 @@ class UserInformation : Fragment() {
                     val name = documentSnapshot.getString("name")
                     val email = documentSnapshot.getString("email")
                     val type = documentSnapshot.getString("type")
+                    val imageUrl = documentSnapshot.getString("imageUrl") // Get imageUrl from Firestore
 
                     nameTextView.text = name
                     emailTextView.text = email
                     typeTextView.text = type
+
+                    if (imageUrl != null) {
+                        Thread {
+                            try {
+                                val url = URL(imageUrl)
+                                val connection: HttpURLConnection = url.openConnection() as HttpURLConnection
+                                connection.doInput = true
+                                connection.connect()
+                                val input: InputStream = connection.inputStream
+                                val bitmap = BitmapFactory.decodeStream(input)
+
+                                requireActivity().runOnUiThread {
+                                    imageProfile.setImageBitmap(bitmap)
+                                }
+                            } catch (e: Exception) {
+                                e.printStackTrace()
+                            }
+                        }.start()
+                    }
                 }
             }.addOnFailureListener { exception ->
                 Toast.makeText(requireContext(), "Failed!", Toast.LENGTH_SHORT).show()
@@ -77,9 +103,7 @@ class UserInformation : Fragment() {
         requireActivity().finish()
         Toast.makeText(requireContext(), "Logout successfully!", Toast.LENGTH_SHORT).show()
     }
-
     companion object {
         fun newInstance() = UserInformation()
-
     }
 }

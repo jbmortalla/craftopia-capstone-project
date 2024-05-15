@@ -1,6 +1,7 @@
 package com.capstone.craftopiaproject
 
 import android.os.Bundle
+import android.view.MotionEvent
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -20,12 +21,13 @@ import com.capstone.craftopiaproject.category.Home_List
 import com.capstone.craftopiaproject.category.lists
 
 class HomeFragment : Fragment() {
+    private lateinit var adapter: Home_Adapter
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_home, container, false)
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -36,13 +38,23 @@ class HomeFragment : Fragment() {
 
         searchBarButton.setOnClickListener {
             val searchText = searchBarEditText.text.toString()
-            // Perform search here
+            adapter.filter(searchText)
         }
 
+        searchBarEditText.setOnTouchListener { _, event ->
+            val drawableRight = 2
+            if (event.action == MotionEvent.ACTION_UP) {
+                if (event.rawX >= (searchBarEditText.right - searchBarEditText.compoundDrawables[drawableRight].bounds.width())) {
+                    searchBarEditText.text.clear()
+                    adapter.filter("")
+                    return@setOnTouchListener true
+                }
+            }
+            false
+        }
 
         val toolbar = view.findViewById<Toolbar>(R.id.tolbar)
         (activity as AppCompatActivity).setSupportActionBar(toolbar)
-
         (activity as AppCompatActivity).supportActionBar?.title = ""
 
         val drawerToggle = view.findViewById<ImageButton>(R.id.drawerToggle)
@@ -56,9 +68,8 @@ class HomeFragment : Fragment() {
 
         prepareCategoryData()
 
-        val adapter = Home_Adapter(requireContext(), lists.getCategory())
+        adapter = Home_Adapter(requireContext(), lists.getCategory())
         homeRecyclerView.adapter = adapter
-
     }
 
     private fun prepareCategoryData() {
