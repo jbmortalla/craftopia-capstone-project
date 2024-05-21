@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="175dp"
+    android:layout_height="245dp"
+    android:layout_margin="8dp"
+    android:background="@drawable/create_border"
+    android:elevation="3dp">
+
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/product_image"
+        android:layout_width="175dp"
+        android:layout_height="155dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:background="@drawable/white_border"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/product_image" />
+
+    <TextView
+        android:id="@+id/product_Title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:lines="2"
+        android:maxLines="2"
+        android:text="product name"
+        android:textColor="#000000"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/view"
+        app:layout_constraintStart_toStartOf="@+id/ratingBar"
+        app:layout_constraintTop_toBottomOf="@+id/ratingBar" />
+
+    <RatingBar
+        android:id="@+id/ratingBar"
+        style="@android:style/Widget.DeviceDefault.RatingBar.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:indeterminate="false"
+        android:isIndicator="true"
+        android:numStars="5"
+        android:progressTint="#FFC107"
+        android:rating="3"
+        android:stepSize="0.1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/product_image" />
+
+    <TextView
+        android:id="@+id/product_Price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:text="product price"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/product_Title" />
+
+    <ImageView
+        android:id="@+id/feedback"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:src="@drawable/baseline_chat_24"
+        app:layout_constraintBottom_toBottomOf="@+id/product_Price"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/product_Price" />
+
+    <TextView
+        android:id="@+id/feedbackText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="12"
+        android:textColor="#000000"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/feedback"
+        app:layout_constraintEnd_toStartOf="@+id/feedback"
+        app:layout_constraintTop_toTopOf="@+id/feedback" />
+
+    <TextView
+        android:id="@+id/ratingbarText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="(5)"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/ratingBar"
+        app:layout_constraintStart_toEndOf="@+id/ratingBar"
+        app:layout_constraintTop_toTopOf="@+id/ratingBar" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

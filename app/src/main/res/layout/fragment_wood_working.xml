@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HomeFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".creation.WoodWorkingFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,10 +18,10 @@
             android:background="@color/header">
 
             <ImageButton
-                android:id="@+id/drawerToggle"
+                android:id="@+id/woodWorkingbackbutton"
                 android:layout_width="55dp"
                 android:layout_height="45dp"
-                android:src="@drawable/burgercap"
+                android:src="@drawable/baseline_arrow_back_24"
                 android:background="@color/transparent" />
 
             <ImageView
@@ -31,12 +31,12 @@
                 android:background="@drawable/sidebartitle"/>
 
             <ImageButton
-                android:id="@+id/addProduct"
+                android:id="@+id/notification"
                 android:layout_width="55dp"
                 android:layout_height="45dp"
                 android:layout_gravity="end"
                 android:background="@color/transparent"
-                android:src="@drawable/baseline_add_24"/>
+                android:src="@drawable/notif"/>
 
         </androidx.appcompat.widget.Toolbar>
 
@@ -47,8 +47,13 @@
             android:background="@color/header"
             android:orientation="horizontal">
 
+            <Spinner
+                android:id="@+id/woodWorkingspinnerButton"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"/>
+
             <EditText
-                android:id="@+id/search_bar_edit_text"
+                android:id="@+id/woodWorking_search_bar"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -60,7 +65,7 @@
                 android:textSize="14dp" />
 
             <Button
-                android:id="@+id/search_bar_button"
+                android:id="@+id/woodWorking_search_button"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
@@ -70,30 +75,25 @@
                 android:textSize="13sp"
                 app:icon="@android:drawable/ic_menu_search" />
 
-
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="20dp">
-
+            android:layout_height="match_parent"
+            android:orientation="vertical">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="false"
-                android:gravity="center_horizontal"
-                android:text="Explore your passions and interests. Support
-handcrafters and their creations. Only on Craftopia." />
+                android:padding="10dp"
+                android:textStyle="bold"
+                android:textSize="20dp"
+                android:text="Featured Products"/>
 
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/woodWorkingRecycler"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
         </LinearLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/homeRecycler"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
     </LinearLayout>
-
 </FrameLayout>

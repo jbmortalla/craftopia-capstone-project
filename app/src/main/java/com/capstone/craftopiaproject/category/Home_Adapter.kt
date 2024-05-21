@@ -11,7 +11,8 @@ import com.capstone.craftopiaproject.R
 
 class Home_Adapter(
     private val context: Context,
-    private var homeList: List<Home_List>
+    private var homeList: List<Home_List>,
+    private val itemClickListener: (Home_List) -> Unit
 ) : RecyclerView.Adapter<Home_Adapter.HomeViewHolder>() {
 
     private var filteredList: List<Home_List> = homeList
@@ -30,6 +31,7 @@ class Home_Adapter(
         val homeItem = filteredList[position]
         holder.categoryImage.setImageResource(homeItem.categoryImg)
         holder.categoryName.text = homeItem.categoryName
+        holder.itemView.setOnClickListener { itemClickListener(homeItem) }
     }
 
     override fun getItemCount(): Int {

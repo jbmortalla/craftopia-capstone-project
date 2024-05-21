@@ -41,7 +41,7 @@
 
     <item
         android:title="Program and Features">
-        <menu>
+        <menu android:id="@+id/program_features_group">
             <item
                 android:id="@+id/collab"
                 android:icon="@drawable/baseline_connect_without_contact_24"

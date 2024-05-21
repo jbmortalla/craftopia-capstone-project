@@ -85,50 +85,39 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <LinearLayout
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayout9"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_weight="2">
+                android:layout_marginTop="10dp"
+                android:hint="Password">
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/textInputLayout9"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/sign_pass"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginTop="10dp"
-                    android:hint="Password">
+                    android:inputType="textPassword"
+                    android:maxLines="1"
+                    android:ems="15" />
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/sign_pass"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="textPassword"
-                        android:maxLines="1"
-                        android:ems="15" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-                </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayout4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:hint="Confirm Password">
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/textInputLayout4"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/sign_confirmpass"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginLeft="5dp"
-                    android:hint="Confirm Password">
+                    android:inputType="textPassword"
+                    android:maxLines="1"
+                    android:ems="15" />
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/sign_confirmpass"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="textPassword"
-                        android:maxLines="1"
-                        android:ems="15" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-            </LinearLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayout5"
@@ -149,14 +138,14 @@
 
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:layout_marginTop="10dp"
                 android:orientation="horizontal">
 
                 <Button
                     android:id="@+id/uploadButton"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:backgroundTint="#2196F3"
                     android:text="Upload Image"
                     android:textSize="12dp"
@@ -166,8 +155,10 @@
                 <TextView
                     android:id="@+id/imageLink"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="43dp"
                     android:gravity="center"
+                    android:padding="10dp"
+                    android:background="@drawable/link_border"
                     android:text="Image Link"/>
 
             </LinearLayout>

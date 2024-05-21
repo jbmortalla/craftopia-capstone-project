@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".creation.product.CreateFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/tolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/header">
+
+            <ImageButton
+                android:id="@+id/Backbutton"
+                android:layout_width="55dp"
+                android:layout_height="45dp"
+                android:src="@drawable/baseline_arrow_back_24"
+                android:background="@color/transparent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Create Product"
+                android:textSize="20dp"/>
+
+
+        </androidx.appcompat.widget.Toolbar>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="20dp"
+            android:orientation="vertical">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/InputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:hint="Product Name">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/product_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:ems="15" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/InputLayout2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:hint="Price">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/product_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:ems="15" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/InputLayout3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:hint="Product Description">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/product_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:ems="15" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:id="@+id/InputLayout4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:hint="Category Type">
+
+                <AutoCompleteTextView
+                    android:id="@+id/categoryType"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="none"
+                    android:layout_weight="1"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/upload_image_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:backgroundTint="#2196F3"
+                    android:text="Upload Image"
+                    android:textSize="12dp"
+                    app:cornerRadius="1dp"
+                    app:icon="@android:drawable/ic_menu_crop" />
+
+                <TextView
+                    android:id="@+id/image_create_link"
+                    android:layout_width="wrap_content"
+                    android:layout_height="43dp"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:background="@drawable/link_border"
+                    android:text="Image Link"/>
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/create_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#66C56A"
+                android:layout_marginTop="15dp"
+                android:layout_gravity="center"
+                app:cornerRadius="1dp"
+                android:text="Create"/>
+            
+
+        </LinearLayout>
+
+    </LinearLayout>
+</FrameLayout>
