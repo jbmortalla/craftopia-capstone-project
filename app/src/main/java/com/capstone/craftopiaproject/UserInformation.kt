@@ -1,7 +1,6 @@
 package com.capstone.craftopiaproject
 
 import android.content.Intent
-import android.graphics.BitmapFactory
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -11,12 +10,9 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import java.io.InputStream
-import java.net.HttpURLConnection
-import java.net.URL
-
 
 class UserInformation : Fragment() {
 
@@ -39,7 +35,6 @@ class UserInformation : Fragment() {
         emailTextView = view.findViewById(R.id.userEmail)
         typeTextView = view.findViewById(R.id.userType)
         imageProfile = view.findViewById(R.id.profile)
-
         logoutButton = view.findViewById(R.id.logoutButton)
 
         firebaseAuth = FirebaseAuth.getInstance()
@@ -68,26 +63,14 @@ class UserInformation : Fragment() {
                     typeTextView.text = type
 
                     if (imageUrl != null) {
-                        Thread {
-                            try {
-                                val url = URL(imageUrl)
-                                val connection: HttpURLConnection = url.openConnection() as HttpURLConnection
-                                connection.doInput = true
-                                connection.connect()
-                                val input: InputStream = connection.inputStream
-                                val bitmap = BitmapFactory.decodeStream(input)
-
-                                requireActivity().runOnUiThread {
-                                    imageProfile.setImageBitmap(bitmap)
-                                }
-                            } catch (e: Exception) {
-                                e.printStackTrace()
-                            }
-                        }.start()
+                        Glide.with(this)
+                            .load(imageUrl)
+                            .circleCrop()
+                            .into(imageProfile)
                     }
                 }
             }.addOnFailureListener { exception ->
-                Toast.makeText(requireContext(), "Failed!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Failed to retrieve user data!", Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -98,11 +81,11 @@ class UserInformation : Fragment() {
 
     private fun logoutUser() {
         firebaseAuth.signOut()
-        // Navigate to your login activity or perform any other action after logout
         startActivity(Intent(requireContext(), Login::class.java))
         requireActivity().finish()
         Toast.makeText(requireContext(), "Logout successfully!", Toast.LENGTH_SHORT).show()
     }
+
     companion object {
         fun newInstance() = UserInformation()
     }

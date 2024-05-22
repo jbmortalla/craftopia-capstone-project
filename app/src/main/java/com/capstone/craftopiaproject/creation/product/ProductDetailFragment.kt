@@ -62,16 +62,11 @@ class ProductDetailFragment : Fragment() {
 
         val backButton: ImageButton = view.findViewById(R.id.delailbackbutton)
         backButton.setOnClickListener {
-
             requireActivity().supportFragmentManager.popBackStack()
-
-            requireActivity().onBackPressed()
         }
-
 
         return view
     }
-
 
     private fun populateProductDetails(view: View, product: Product_List?) {
         product?.let {
