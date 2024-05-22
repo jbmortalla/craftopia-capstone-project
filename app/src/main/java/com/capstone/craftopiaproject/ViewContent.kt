@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.forEach
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
+import com.capstone.craftopiaproject.creation.product.ProductDetailFragment
 import com.capstone.craftopiaproject.menu.WorkshopFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
@@ -80,6 +81,19 @@ class ViewContent : AppCompatActivity() {
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
 
+    }
+
+    override fun onBackPressed() {
+        val fragment = supportFragmentManager.findFragmentById(R.id.frameLayout)
+
+        // Check if the current fragment is ProductDetailFragment
+        if (fragment is ProductDetailFragment) {
+            // If ProductDetailFragment is visible, navigate back without adding it to the back stack
+            super.onBackPressed()
+        } else {
+            // Otherwise, proceed with default back navigation behavior
+            super.onBackPressed()
+        }
     }
 
     fun loadFragment(fragment: Fragment) {

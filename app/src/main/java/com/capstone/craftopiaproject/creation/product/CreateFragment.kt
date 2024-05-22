@@ -27,6 +27,7 @@ class CreateFragment : Fragment() {
     private lateinit var productPriceEditText: TextInputEditText
     private lateinit var productDescriptionEditText: TextInputEditText
     private lateinit var categoryTypeInput: AutoCompleteTextView
+    private lateinit var subcategoryInput: AutoCompleteTextView
     private lateinit var uploadButton: Button
     private lateinit var imageLinkTextView: TextView
     private lateinit var createButton: Button
@@ -55,13 +56,14 @@ class CreateFragment : Fragment() {
         productPriceEditText = view.findViewById(R.id.product_price)
         productDescriptionEditText = view.findViewById(R.id.product_description)
         categoryTypeInput = view.findViewById(R.id.categoryType)
+        subcategoryInput = view.findViewById(R.id.subCategory)
         uploadButton = view.findViewById(R.id.upload_image_button)
         imageLinkTextView = view.findViewById(R.id.image_create_link)
         createButton = view.findViewById(R.id.create_button)
         backButton = view.findViewById(R.id.Backbutton)
 
         backButton.setOnClickListener {
-            activity?.onBackPressed()
+            requireActivity().onBackPressed()
         }
 
         uploadButton.setOnClickListener {
@@ -70,6 +72,7 @@ class CreateFragment : Fragment() {
         }
 
         setupCategoryTypeDropdown()
+        setupSubCategoryDropdown()
 
         createButton.setOnClickListener {
             createProduct()
@@ -87,6 +90,16 @@ class CreateFragment : Fragment() {
         )
         val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, categories)
         categoryTypeInput.setAdapter(adapter)
+    }
+
+    private fun setupSubCategoryDropdown() {
+        val categories = arrayOf(
+            "Creations",
+            "Tools",
+            "Raw Materials"
+        )
+        val subcategoryadapter = ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, categories)
+        subcategoryInput.setAdapter(subcategoryadapter)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -116,6 +129,7 @@ class CreateFragment : Fragment() {
         val productName = productNameEditText.text.toString()
         val productPrice = productPriceEditText.text.toString()
         val productDescription = productDescriptionEditText.text.toString()
+        val subCategory = subcategoryInput.text.toString()
         val categoryType = categoryTypeInput.text.toString()
         val imageLink = imageLinkTextView.text.toString()
 
@@ -124,27 +138,30 @@ class CreateFragment : Fragment() {
             return
         }
 
-        val price: Int = try {
-            productPrice.toInt()
+        val price: Double = try {
+            productPrice.toDouble()
         } catch (e: NumberFormatException) {
             Toast.makeText(context, "Invalid product price", Toast.LENGTH_SHORT).show()
             return
         }
+
+
 
         val product = hashMapOf(
             "name" to productName,
             "price" to price,
             "description" to productDescription,
             "category" to categoryType,
+            "subcategory" to subCategory,
             "imageLink" to imageLink,
             "userId" to auth.currentUser?.uid
         )
 
         db.collection("products")
             .add(product)
-            .addOnSuccessListener {
+            .addOnSuccessListener { documentReference ->
                 Toast.makeText(context, "Product created successfully", Toast.LENGTH_SHORT).show()
-                val productItem = Product_List(imageLink, productName, price, categoryType)
+                val productItem = Product_List(documentReference.id, imageLink, productName, price, categoryType, subCategory)
                 Lists.addProduct(productItem)
                 activity?.onBackPressed()
             }

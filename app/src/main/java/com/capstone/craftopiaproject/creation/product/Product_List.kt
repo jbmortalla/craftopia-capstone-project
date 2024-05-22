@@ -1,11 +1,16 @@
 package com.capstone.craftopiaproject.creation.product
 
 class Product_List (
-    var imageLink: String = "",
-    var name: String = "",
-    var price: Int = 0,
-    var category: String = ""
-)
+    var productId: String? = null,
+    var imageLink: String? = null,
+    var name: String? = null,
+    var price: Double? = null,
+    var description: String? = null,
+    var subcategory: String? = null,
+    var category: String? = null
+){
+    constructor() : this("", "", "", 0.00, "", "")
+}
 
 object Lists {
     private val products = mutableListOf<Product_List>()
@@ -14,11 +19,4 @@ object Lists {
         products.add(product)
     }
 
-    fun getProductsByCategory(category: String): List<Product_List> {
-        return products.filter { it.category == category }
-    }
-
-    fun getAllProducts(): List<Product_List> {
-        return products
-    }
 }

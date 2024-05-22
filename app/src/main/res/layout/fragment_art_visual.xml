@@ -47,11 +47,6 @@
             android:background="@color/header"
             android:orientation="horizontal">
 
-            <Spinner
-                android:id="@+id/art_spinnerButton"
-                android:layout_width="50dp"
-                android:layout_height="match_parent"/>
-
             <EditText
                 android:id="@+id/art_search_bar"
                 android:layout_width="0dp"
