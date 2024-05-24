@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ImageView
+import android.widget.RatingBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.capstone.craftopiaproject.R
@@ -30,11 +31,22 @@ class Product_Adapter(
         private val productName: TextView = itemView.findViewById(R.id.product_Title)
         private val productPrice: TextView = itemView.findViewById(R.id.product_Price)
         private val productImage: ImageView = itemView.findViewById(R.id.product_image)
+        private val feedbackText: TextView = itemView.findViewById(R.id.feedbackText)
+        private val ratingBar: RatingBar = itemView.findViewById(R.id.ratingBar)
+        private val ratingbarText: TextView = itemView.findViewById(R.id.ratingbarText)
 
         fun bind(product: Product_List, onItemClick: (Product_List) -> Unit) {
             productName.text = product.name
-            productPrice.text = "₱${ product.price.toString() }"
+            productPrice.text = "₱${product.price.toString()}"
             product.imageLink?.let { loadImage(it, productImage) }
+
+            val feedbackCount = product.feedback?.size ?: 0
+            feedbackText.text = feedbackCount.toString()
+
+            val averageRating = product.feedback?.map { it.rating }?.average() ?: 0.0
+            ratingBar.rating = averageRating.toFloat()
+            ratingbarText.text = "(${String.format("%.1f", averageRating)})"
+
             itemView.setOnClickListener {
                 onItemClick(product)
             }

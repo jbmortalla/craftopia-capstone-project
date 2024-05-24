@@ -177,6 +177,7 @@
                             android:layout_weight="1"
                             android:textSize="20dp"/>
                         <ImageButton
+                            android:id="@+id/feedbackButton"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/baseline_add_24"/>
@@ -187,6 +188,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"/>
+
                 </LinearLayout>
 
             </LinearLayout>

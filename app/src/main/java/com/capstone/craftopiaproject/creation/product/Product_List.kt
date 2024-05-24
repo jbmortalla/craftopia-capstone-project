@@ -7,7 +7,8 @@ class Product_List (
     var price: Double? = null,
     var description: String? = null,
     var subcategory: String? = null,
-    var category: String? = null
+    var category: String? = null,
+    var feedback: List<Feedback>? = null
 ){
     constructor() : this("", "", "", 0.00, "", "")
 }

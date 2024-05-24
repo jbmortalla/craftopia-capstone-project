@@ -145,8 +145,6 @@ class CreateFragment : Fragment() {
             return
         }
 
-
-
         val product = hashMapOf(
             "name" to productName,
             "price" to price,

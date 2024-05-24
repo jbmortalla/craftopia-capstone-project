@@ -74,6 +74,47 @@
 
         <LinearLayout
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/textTools"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginStart="10dp"
+                android:background="@drawable/circle_bg"
+                android:backgroundTint="#DADADA"
+                android:elevation="3dp"
+                android:src="@drawable/baseline_build_24"
+                app:shapeAppearanceOverlay="@style/circular" />
+
+            <ImageButton
+                android:id="@+id/textCreations"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginStart="10dp"
+                android:background="@drawable/circle_bg"
+                android:backgroundTint="#DADADA"
+                android:elevation="3dp"
+                android:src="@drawable/baseline_auto_awesome_24"
+                app:shapeAppearanceOverlay="@style/circular" />
+
+            <ImageButton
+                android:id="@+id/textRawMaterials"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginStart="10dp"
+                android:background="@drawable/circle_bg"
+                android:backgroundTint="#DADADA"
+                android:elevation="3dp"
+                android:src="@drawable/baseline_category_24"
+                app:shapeAppearanceOverlay="@style/circular" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
             <TextView

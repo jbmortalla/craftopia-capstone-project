@@ -83,19 +83,6 @@ class ViewContent : AppCompatActivity() {
 
     }
 
-    override fun onBackPressed() {
-        val fragment = supportFragmentManager.findFragmentById(R.id.frameLayout)
-
-        // Check if the current fragment is ProductDetailFragment
-        if (fragment is ProductDetailFragment) {
-            // If ProductDetailFragment is visible, navigate back without adding it to the back stack
-            super.onBackPressed()
-        } else {
-            // Otherwise, proceed with default back navigation behavior
-            super.onBackPressed()
-        }
-    }
-
     fun loadFragment(fragment: Fragment) {
         supportFragmentManager
             .beginTransaction()

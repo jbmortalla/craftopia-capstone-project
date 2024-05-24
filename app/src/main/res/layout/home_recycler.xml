@@ -18,6 +18,7 @@
             android:layout_width="140dp"
             android:layout_height="140dp"
             android:background="@drawable/embroidery"
+            android:elevation="5dp"
             app:shapeAppearanceOverlay="@style/circular" />
 
         <TextView
