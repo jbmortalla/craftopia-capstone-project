@@ -88,8 +88,8 @@ class TextilesFragment : Fragment() {
             .addOnSuccessListener { documents ->
                 if (documents.isEmpty) {
                     Toast.makeText(requireContext(), "No products found", Toast.LENGTH_SHORT).show()
-                    productsList.clear() // Clear the existing list of products
-                    productAdapter.updateProducts(productsList) // Update the adapter with the cleared list
+                    productsList.clear()
+                    productAdapter.updateProducts(productsList)
                 } else {
                     productsList.clear()
                     for (document in documents) {
