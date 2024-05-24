@@ -41,7 +41,7 @@ class FeedbackAdapter(private val feedbackList: List<Feedback>) : RecyclerView.A
         holder.feedbackRating.rating = feedback.rating
         holder.feedbackTimestamp.text = android.text.format.DateFormat.format("dd MMM yyyy", feedback.timestamp)
 
-        if (feedback.imageUrl!!.isNotEmpty()) {
+        if (!feedback.imageUrl.isNullOrEmpty()) {
             LoadImageTask(holder.userImage).execute(feedback.imageUrl)
         } else {
             holder.userImage.setImageResource(R.drawable.avatar)
@@ -68,8 +68,10 @@ class FeedbackAdapter(private val feedbackList: List<Feedback>) : RecyclerView.A
         }
 
         override fun onPostExecute(result: Bitmap?) {
-            result?.let {
-                imageView.setImageBitmap(it)
+            if (result != null) {
+                imageView.setImageBitmap(result)
+            } else {
+                imageView.setImageResource(R.drawable.avatar)
             }
         }
     }
