@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.ImageView
@@ -29,6 +30,8 @@ import java.net.URL
 class ProductDetailFragment : Fragment() {
 
     private val db = FirebaseFirestore.getInstance()
+    private lateinit var auth: FirebaseAuth
+    private lateinit var firestore: FirebaseFirestore
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -36,6 +39,9 @@ class ProductDetailFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_product_detail, container, false)
 
         val productId = arguments?.getString("productId")
+
+        auth = FirebaseAuth.getInstance()
+        firestore = FirebaseFirestore.getInstance()
 
         if (productId != null) {
             db.collection("products")
@@ -65,9 +71,36 @@ class ProductDetailFragment : Fragment() {
             Toast.makeText(context, "Product ID is null", Toast.LENGTH_SHORT).show()
         }
 
+        val addToCart: Button = view.findViewById(R.id.addToCart)
+        addToCart.setOnClickListener {
+            val productId = arguments?.getString("productId")
+            if (productId != null) {
+                db.collection("products")
+                    .document(productId)
+                    .get()
+                    .addOnSuccessListener { document ->
+                        val product = document.toObject(Product_List::class.java)
+                        addToCart(product)
+                    }
+                    .addOnFailureListener { exception ->
+                        Log.e("ProductDetailFragment", "Error fetching product details: ${exception.message}")
+                        Toast.makeText(context, "Error fetching product details", Toast.LENGTH_SHORT).show()
+                    }
+            } else {
+                Log.e("ProductDetailFragment", "Product ID is null")
+                Toast.makeText(context, "Product ID is null", Toast.LENGTH_SHORT).show()
+            }
+        }
+
         val backButton: ImageButton = view.findViewById(R.id.delailbackbutton)
         backButton.setOnClickListener {
             requireActivity().onBackPressed()
+        }
+
+
+        val checkoutButton : Button = view.findViewById(R.id.detailCheckout)
+        checkoutButton.setOnClickListener {
+
         }
 
         val feedbackButton: ImageButton = view.findViewById(R.id.feedbackButton)
@@ -128,6 +161,30 @@ class ProductDetailFragment : Fragment() {
         return view
     }
 
+    private fun addToCart(product: Product_List?) {
+        val userId = auth.currentUser?.uid ?: return
+        val productId = product?.productId ?: return
+        val cartItem = hashMapOf(
+            "productId" to productId,
+            "name" to product.name,
+            "imageUrl" to product.imageLink,
+            "price" to product.price,
+            "subcategory" to product.subcategory,
+            "quantity" to 1
+        )
+
+        db.collection("user")
+            .document(userId)
+            .collection("cart")
+            .add(cartItem)
+            .addOnSuccessListener {
+                Toast.makeText(requireContext(), "Added to cart", Toast.LENGTH_SHORT).show()
+            }
+            .addOnFailureListener { e ->
+                Toast.makeText(requireContext(), "Failed to add to cart: ${e.message}", Toast.LENGTH_SHORT).show()
+            }
+    }
+
     private fun populateProductDetails(view: View, product: Product_List?) {
         product?.let {
             view.findViewById<TextView>(R.id.detail_name).text = it.name
@@ -135,7 +192,14 @@ class ProductDetailFragment : Fragment() {
             view.findViewById<TextView>(R.id.productDetail).text = it.description
 
             val detailImageView = view.findViewById<ImageView>(R.id.detailImage)
-            LoadImageTask(detailImageView).execute(it.imageLink)
+            val imageUrl = it.imageLink
+            Log.d("ProductDetailFragment", "Image URL: $imageUrl")
+
+            if (imageUrl != null) {
+                LoadImageTask(detailImageView).execute(imageUrl)
+            } else {
+                Log.e("ProductDetailFragment", "Image URL is null")
+            }
 
             val ratingBar: RatingBar = view.findViewById(R.id.ratingBarDetail)
             ratingBar.numStars = 5
@@ -188,21 +252,29 @@ class ProductDetailFragment : Fragment() {
         override fun doInBackground(vararg params: String?): Bitmap? {
             val imageUrl = params[0]
             return try {
-                val url = URL(imageUrl)
-                val connection: HttpURLConnection = url.openConnection() as HttpURLConnection
-                connection.doInput = true
-                connection.connect()
-                val inputStream: InputStream = connection.inputStream
-                BitmapFactory.decodeStream(inputStream)
+                if (imageUrl.isNullOrEmpty()) {
+                    Log.e("LoadImageTask", "Image URL is null or empty")
+                    null
+                } else {
+                    val url = URL(imageUrl)
+                    val connection: HttpURLConnection = url.openConnection() as HttpURLConnection
+                    connection.doInput = true
+                    connection.connect()
+                    val inputStream: InputStream = connection.inputStream
+                    BitmapFactory.decodeStream(inputStream)
+                }
             } catch (e: IOException) {
+                Log.e("LoadImageTask", "Error loading image: ${e.message}")
                 e.printStackTrace()
                 null
             }
         }
 
         override fun onPostExecute(result: Bitmap?) {
-            result?.let {
-                imageView.setImageBitmap(it)
+            if (result != null) {
+                imageView.setImageBitmap(result)
+            } else {
+                Log.e("LoadImageTask", "Bitmap is null")
             }
         }
     }

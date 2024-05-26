@@ -1,15 +1,12 @@
 package com.capstone.craftopiaproject
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.forEach
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
-import com.capstone.craftopiaproject.creation.product.ProductDetailFragment
 import com.capstone.craftopiaproject.menu.WorkshopFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
@@ -46,11 +43,8 @@ class ViewContent : AppCompatActivity() {
                 R.id.nav -> {
                     selectedFragment = MapsFragment()
                 }
-                R.id.fav -> {
-                    selectedFragment = FavoritesFragment.newInstance()
-                }
                 R.id.order -> {
-                    selectedFragment = OrderFragment.newInstance()
+                    selectedFragment = CartFragment.newInstance()
                 }
                 R.id.profile -> {
                     selectedFragment = UserInformation.newInstance()

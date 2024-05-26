@@ -11,10 +11,6 @@
         android:title="Navigation"
         android:icon="@drawable/pinpg"/>
     <item
-        android:id="@+id/fav"
-        android:title="Favorites"
-        android:icon="@drawable/heartpg"/>
-    <item
         android:id="@+id/order"
         android:title="Order"
         android:icon="@drawable/bagpg"/>

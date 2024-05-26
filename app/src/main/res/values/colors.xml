@@ -18,4 +18,6 @@
     <color name="button">#EDE04E</color>
     <color name="bglogincolor">#D3D3C0</color>
     <color name="product">#E4E4E4</color>
+    <color name="plus">#55C159</color>
+    <color name="bgquanti">#EDEDED</color>
 </resources>

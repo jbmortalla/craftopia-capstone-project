@@ -108,7 +108,6 @@ class Register : AppCompatActivity() {
                         val user = userId.currentUser
                         val userId = user!!.uid
 
-                        // Hash the password
                         val hashedPassword = hashPassword(password)
 
                         val userMap = hashMapOf(

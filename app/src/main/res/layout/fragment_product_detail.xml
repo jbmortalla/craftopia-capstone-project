@@ -89,6 +89,19 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/artistName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Artist: Name "/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
                     <RatingBar
@@ -139,7 +152,7 @@
                     android:orientation="horizontal">
 
                     <Button
-                        android:id="@+id/detailCart"
+                        android:id="@+id/addToCart"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -150,7 +163,7 @@
                         app:iconPadding="4dp" />
 
                     <Button
-                        android:id="@+id/detailBuy"
+                        android:id="@+id/detailCheckout"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"

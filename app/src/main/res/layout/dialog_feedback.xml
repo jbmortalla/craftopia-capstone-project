@@ -10,17 +10,23 @@
         android:id="@+id/ratingBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:progressTint="#FFC107"
         android:numStars="5"
         android:stepSize="1.0" />
 
     <EditText
         android:id="@+id/feedbackEditText"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginTop="8dp"
+        android:layout_weight="1"
+        android:background="#DADADA"
+        android:ems="10"
+        android:gravity="top"
         android:hint="Write your feedback"
         android:inputType="textMultiLine"
         android:minLines="3"
-        android:gravity="top"
-        android:layout_marginTop="8dp" />
+        android:paddingStart="8dp" />
 
 </LinearLayout>
